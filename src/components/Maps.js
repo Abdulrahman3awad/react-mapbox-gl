@@ -1,38 +1,37 @@
-import React from 'react';
-import ReactMapboxGl, { Feature, Layer, Marker, ZoomControl } from 'react-mapbox-gl';
-
-const Map = () => {
-  const Mapbox = ReactMapboxGl({
-    accessToken: 'pk.eyJ1IjoiM2JkbzN3YWQiLCJhIjoiY2x1aGo2N3ltMmp2czJqbmljNnNkcnNqdCJ9.YfTV9in8qYK7tRiyxtYDyQ'
-  });
+import React from "react";
+import Map, { Marker } from "react-map-gl";
+let markersData = [
+  {longitude: 50, latitude: 30,},
+  {longitude: 30, latitude: 10,},
+  {longitude: 50, latitude: 20,},
+]
+function Maps() {
 
   return (
-    <Mapbox
-      style="mapbox://styles/mapbox/satellite-v9"
-      containerStyle={{
-        height: '100vh',
-        width: '100%'
+    <Map
+      mapboxAccessToken="pk.eyJ1IjoiM2JkbzN3YWQiLCJhIjoiY2x1aGV0OXBjMm9pNjJrcXV5bTNxa3AzeiJ9.XIMT6_4aR3jy_cBDjss6xA"
+      mapLib={import("mapbox-gl")}
+      initialViewState={{
+        longitude: 31.233334,
+        latitude: 30.033333,
+        zoom: 7,
       }}
-      center={[31.2357, 30.0444]} // Centered at Cairo
-      zoom={[5]} // Adjust zoom level as needed
+      style={{ width: 600, height: 400 }}
+      mapStyle="mapbox://styles/mapbox/streets-v9"
     >
-        {/* Custom Layer */}
-      <Layer
-        type="circle"
-        id="marker"
-        paint={{
-          'circle-radius': 10,
-          'circle-color': '#007cbf'
-        }}
+      {markersData.map((m,index)=>(
+      <Marker
+        key={index}
+        longitude={m.longitude}
+        latitude={m.latitude}
+        offsetLeft={-20}
+        offsetTop={-10}
       >
-        <Feature coordinates={[31.2357, 30.0444]} />
-      </Layer>
-      <Marker coordinates={[31.2357, 30.0444]} />
-      <ZoomControl position="top-left"/>
+      <img src="787535.png" style={{width:"30px"}} /> 
+      </Marker>
 
-    </Mapbox>
+      ))}
+    </Map>
   );
-};
-
-export default Map;
-
+}
+export default Maps;
